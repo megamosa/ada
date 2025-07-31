@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MagoArab OrderEnhancer Dependency Injection Configuration
+ *
+ * @category    MagoArab
+ * @package     MagoArab_OrderEnhancer
+ * @author      MagoArab Team
+ * @copyright   Copyright (c) 2024 MagoArab
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    
+    <!-- Plugin for Excel Export Enhancement - Multiple Classes -->
+    <type name="Magento\Ui\Model\Export\ConvertToCsv">
+        <plugin name="magoarab_order_enhancer_excel_export" type="MagoArab\OrderEnhancer\Plugin\ExcelExportPlugin" sortOrder="10"/>
+    </type>
+    
+    <type name="Magento\Ui\Model\Export\ConvertToXml">
+        <plugin name="magoarab_order_enhancer_xml_export" type="MagoArab\OrderEnhancer\Plugin\ExcelExportPlugin" sortOrder="10"/>
+    </type>
+    
+    <type name="Magento\ImportExport\Model\Export">
+        <plugin name="magoarab_order_enhancer_import_export" type="MagoArab\OrderEnhancer\Plugin\ExcelExportPlugin" sortOrder="10"/>
+    </type>
+    
+    <!-- Plugin for Order Grid Enhancement -->
+    <type name="Magento\Sales\Model\ResourceModel\Order\Grid\Collection">
+        <plugin name="magoarab_order_enhancer_grid" type="MagoArab\OrderEnhancer\Plugin\OrderGridPlugin" sortOrder="10"/>
+    </type>
+    
+    <!-- Order Items Observer Arguments -->
+    <type name="MagoArab\OrderEnhancer\Observer\OrderItemsObserver">
+        <arguments>
+            <argument name="helperData" xsi:type="object">MagoArab\OrderEnhancer\Helper\Data</argument>
+            <argument name="logger" xsi:type="object">Psr\Log\LoggerInterface</argument>
+            <argument name="orderRepository" xsi:type="object">Magento\Sales\Api\OrderRepositoryInterface</argument>
+            <argument name="orderItemRepository" xsi:type="object">Magento\Sales\Api\OrderItemRepositoryInterface</argument>
+        </arguments>
+    </type>
+    
+    <!-- CSV Processing Service Arguments -->
+    <type name="MagoArab\OrderEnhancer\Service\CsvProcessor">
+        <arguments>
+            <argument name="helperData" xsi:type="object">MagoArab\OrderEnhancer\Helper\Data</argument>
+            <argument name="orderExport" xsi:type="object">MagoArab\OrderEnhancer\Model\Export\OrderExport</argument>
+            <argument name="logger" xsi:type="object">Psr\Log\LoggerInterface</argument>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem</argument>
+        </arguments>
+    </type>
+    
+    <!-- Console Commands Registration -->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="magoarab_order_export" xsi:type="object">MagoArab\OrderEnhancer\Console\Command\ExportOrdersCommand</item>
+                <item name="magoarab_order_validate" xsi:type="object">MagoArab\OrderEnhancer\Console\Command\ValidateConfigCommand</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

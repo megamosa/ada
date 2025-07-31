@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * MagoArab OrderEnhancer Order Grid UI Component
+ *
+ * @category    MagoArab
+ * @package     MagoArab_OrderEnhancer
+ * @author      MagoArab Team
+ * @copyright   Copyright (c) 2024 MagoArab
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="sales_order_columns">
+        <!-- Hide unnecessary default columns -->
+        <column name="store_id">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="base_grand_total">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="customer_group">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="payment_method">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="shipping_information">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="billing_address">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="shipping_address">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </column>
+        
+        <!-- Enhanced required columns -->
+        <column name="created_at" sortOrder="10">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">Order Date</label>
+                <visible>true</visible>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+        
+        <column name="enhanced_customer_name" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer Name</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        
+        <column name="customer_email" sortOrder="25">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer Email</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        
+        <column name="billing_telephone" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Phone Number</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        
+        <column name="alternative_phone" sortOrder="40">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Alternative Phone</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        
+        <column name="customer_note" sortOrder="50">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Order Comments</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        
+        <column name="status" sortOrder="60">
+            <settings>
+                <filter>select</filter>
+                <label translate="true">Order Status</label>
+                <visible>true</visible>
+                <dataType>select</dataType>
+                <options class="Magento\Sales\Ui\Component\Listing\Column\Status\Options"/>
+            </settings>
+        </column>
+        
+        <column name="billing_region" sortOrder="70">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Governorate</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        
+        <column name="billing_city" sortOrder="90">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">City</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        
+        <column name="billing_street" sortOrder="100">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Street Address</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        
+        <column name="total_qty_ordered" sortOrder="110">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Total Quantity Ordered</label>
+                <visible>true</visible>
+                <dataType>number</dataType>
+            </settings>
+        </column>
+        
+        <column name="item_details" sortOrder="120">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Item Details</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        
+        <column name="item_prices" sortOrder="130">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Item Price</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        
+        <column name="items_subtotal" sortOrder="140">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Subtotal</label>
+                <visible>true</visible>
+                <dataType>price</dataType>
+            </settings>
+        </column>
+        
+        <column name="shipping_and_handling" sortOrder="150">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Shipping Amount</label>
+                <visible>true</visible>
+                <dataType>price</dataType>
+            </settings>
+        </column>
+        
+        <column name="discount_amount" sortOrder="160">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Discount Amount</label>
+                <visible>true</visible>
+                <dataType>price</dataType>
+            </settings>
+        </column>
+        
+        <column name="grand_total" sortOrder="170">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Grand Total</label>
+                <visible>true</visible>
+                <dataType>price</dataType>
+            </settings>
+        </column>
+    </columns>
+    
+    <!-- Enhanced Export Configuration -->
+    <export>
+        <file name="orders" label="Orders CSV"/>
+    </export>
+    
+    <!-- Mass Actions -->
+    <massaction name="listing_massaction">
+        <action name="export_csv">
+            <settings>
+                <type>export_csv</type>
+                <label translate="true">Export CSV</label>
+                <url path="mui/export/gridToCsv"/>
+            </settings>
+        </action>
+        <action name="export_xml">
+            <settings>
+                <type>export_xml</type>
+                <label translate="true">Export XML</label>
+                <url path="mui/export/gridToXml"/>
+            </settings>
+        </action>
+    </massaction>
+</listing>

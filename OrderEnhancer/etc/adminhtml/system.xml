@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MagoArab OrderEnhancer Admin Configuration
+ *
+ * @category    MagoArab
+ * @package     MagoArab_OrderEnhancer
+ * @author      MagoArab Team
+ * @copyright   Copyright (c) 2024 MagoArab
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magoarab" translate="label" sortOrder="200">
+            <label>MagoArab</label>
+        </tab>
+        
+        <section id="order_enhancer" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Order Enhancer</label>
+            <tab>magoarab</tab>
+            <resource>MagoArab_OrderEnhancer::config</resource>
+            
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                
+                <field id="enable_excel_export" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Excel Export Enhancer</label>
+                    <comment>Enable enhanced Excel export with consolidated data and proper encoding</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>order_enhancer/general/enable_excel_export</config_path>
+                </field>
+                
+                <field id="enable_customer_email" translate="label comment" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Include Customer Email in Export</label>
+                    <comment>Add customer email column to order export</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>order_enhancer/general/enable_customer_email</config_path>
+                    <depends>
+                        <field id="enable_excel_export">1</field>
+                    </depends>
+                </field>
+                
+                <field id="consolidate_orders" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Consolidate Multi-Row Orders</label>
+                    <comment>Merge scattered order data into single organized rows</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>order_enhancer/general/consolidate_orders</config_path>
+                    <depends>
+                        <field id="enable_excel_export">1</field>
+                    </depends>
+                </field>
+                
+                <field id="utf8_encoding" translate="label comment" type="select" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Force UTF-8 Encoding</label>
+                    <comment>Ensure proper UTF-8 encoding for Arabic and international characters</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>order_enhancer/general/utf8_encoding</config_path>
+                    <depends>
+                        <field id="enable_excel_export">1</field>
+                    </depends>
+                </field>
+                
+                <field id="enable_governorate_filter" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Governorate Filter</label>
+                    <comment>Enable filtering orders by customer governorate/region in admin grid</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>order_enhancer/general/enable_governorate_filter</config_path>
+                </field>
+                
+                <field id="enable_product_columns" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Enhanced Product Columns</label>
+                    <comment>Add enhanced product details columns to order grid and export</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>order_enhancer/general/enable_product_columns</config_path>
+                </field>
+            </group>
+            
+            <group id="customer_data" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer Data Settings</label>
+                
+                <field id="customer_name_priority" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Name Priority</label>
+                    <comment>Choose priority for customer name: Billing Address → Shipping Address → Customer Data</comment>
+                    <source_model>MagoArab\OrderEnhancer\Model\Config\Source\CustomerNamePriority</source_model>
+                    <config_path>order_enhancer/customer_data/name_priority</config_path>
+                </field>
+                
+                <field id="phone_fallback" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Phone Number Fallback</label>
+                    <comment>Use shipping address phone if billing address phone is empty</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>order_enhancer/customer_data/phone_fallback</config_path>
+                </field>
+                
+                <field id="address_fallback" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Address Fallback</label>
+                    <comment>Use shipping address data if billing address data is empty</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>order_enhancer/customer_data/address_fallback</config_path>
+                </field>
+            </group>
+            
+            <group id="export_settings" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Export Settings</label>
+                
+                <field id="export_delimiter" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>CSV Delimiter</label>
+                    <comment>Choose CSV field delimiter</comment>
+                    <source_model>MagoArab\OrderEnhancer\Model\Config\Source\CsvDelimiter</source_model>
+                    <config_path>order_enhancer/export_settings/delimiter</config_path>
+                </field>
+                
+                <field id="export_enclosure" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>CSV Enclosure</label>
+                    <comment>Character used to enclose CSV fields (default: ")</comment>
+                    <config_path>order_enhancer/export_settings/enclosure</config_path>
+                </field>
+                
+                <field id="date_format" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Date Format</label>
+                    <comment>Choose date format for export</comment>
+                    <source_model>MagoArab\OrderEnhancer\Model\Config\Source\DateFormat</source_model>
+                    <config_path>order_enhancer/export_settings/date_format</config_path>
+                </field>
+            </group>
+            
+            <group id="debug" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Debug Settings</label>
+                
+                <field id="enable_logging" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Debug Logging</label>
+                    <comment>Enable detailed logging for troubleshooting (check var/log/debug.log)</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>order_enhancer/debug/enable_logging</config_path>
+                </field>
+                
+                <field id="log_export_details" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Log Export Details</label>
+                    <comment>Log detailed export process information</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>order_enhancer/debug/log_export_details</config_path>
+                    <depends>
+                        <field id="enable_logging">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

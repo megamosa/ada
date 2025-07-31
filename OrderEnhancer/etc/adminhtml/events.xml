@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_grid_collection_load_before">
+        <observer name="magoarab_add_governorate_filter" instance="MagoArab\OrderEnhancer\Observer\AddGovernorateFilter" />
+    </event>
+    
+    <event name="sales_order_grid_collection_load_after">
+        <observer name="magoarab_add_order_items" instance="MagoArab\OrderEnhancer\Observer\OrderItemsObserver" />
+    </event>
+</config>
